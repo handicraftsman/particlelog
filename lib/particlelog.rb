@@ -45,13 +45,8 @@ class ParticleLog
 
   def write(message, **opts)
     level   = opts[:level]   || @level
-    colored = opts[:colored] || true
-    if colored
-      c = @color_table[level]
-      STDERR.print "#{C_BOLD+c}[#{C_CRESET+DateTime.now.strftime+C_BOLD+c} | #{C_CRESET}#{@level_table[level]+C_BOLD+c}] #{C_RESET+name+C_BOLD+c}> #{C_RESET+message}\n"
-    else
-      STDERR.print "[#{DateTime.now.strftime} | #{@level_table[level]}] #{name}> #{message}\n"
-    end
+    c = @color_table[level]
+    STDERR.print "#{C_BOLD+c}[#{C_CRESET+DateTime.now.strftime+C_BOLD+c} | #{C_CRESET}#{@level_table[level]+C_BOLD+c}] #{C_RESET+name+C_BOLD+c}> #{C_RESET+message}\n"
   end
 
   def debug     (message, **opts) write(message, **(opts.merge level:     DEBUG)) end
